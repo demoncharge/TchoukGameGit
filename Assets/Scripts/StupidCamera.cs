@@ -6,7 +6,7 @@ public class StupidCamera : MonoBehaviour
 {
     public float Angle = 90;
     public float Speed = 30;
-    public float Radius = 3.1;
+    public float Radius = 3.1f;
     // Start is called before the first frame update
     void Start()
     {
