@@ -26,10 +26,7 @@ public class Hands : MonoBehaviour
             Height -= (1*Speed/50);
         }
         transform.position = new Vector3(transform.position.x, Height, transform.position.z);
-        Vector2 a = new Vector2(transform.position.x, transform.position.y);
-        Vector2 b = new Vector2(0, 1);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 57 * Mathf.Atan(7 * Height) - 90);
-        if (Height < 0)
+        if (Height < 0.5)
         {
             ChangeSprite(HandLow);
         } else 
