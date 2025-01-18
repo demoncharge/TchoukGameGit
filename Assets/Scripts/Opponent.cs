@@ -13,7 +13,7 @@ public class Opponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x-Frame.transform.position.x < 0f){
+        if(transform.position.x-Frame.transform.position.x < 1.5f){
             transform.DetachChildren();
         }
         transform.position += new Vector3(-1f,0,0f) * Time.deltaTime;
