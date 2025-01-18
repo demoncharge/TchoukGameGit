@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Hands : MonoBehaviour
 {
+    public Sprite HandHigh;
+    public Sprite HandLow;
     private bool HandsHigh = false;
     public float Height = 3.5f;
     public float Speed = 10;
@@ -27,6 +29,13 @@ public class Hands : MonoBehaviour
         Vector2 a = new Vector2(transform.position.x, transform.position.y);
         Vector2 b = new Vector2(0, 1);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 57 * Mathf.Atan(7 * Height) - 90);
+        if (Height < 0)
+        {
+            ChangeSprite(HandLow);
+        } else 
+        {
+            ChangeSprite(HandHigh);
+        }
     }
 
     void ChangeSprite(Sprite sprite)
