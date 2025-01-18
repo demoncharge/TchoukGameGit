@@ -21,8 +21,12 @@ public class Ball : MonoBehaviour
     private Opponent opponentcomponent;
     private bool isBallMovingToTarget = false;
     private Vector3 launchDirection;
-    
+    public bool canmove = true;
     private Rigidbody2D rb;
+
+    public GameObject Camra;
+    private StupidCamera camara;
+    private float Radius = 7.8f;
 
     void Start()
     {
@@ -42,18 +46,25 @@ public class Ball : MonoBehaviour
     {
         defendercomponent = defender.GetComponent<Defender>();
         opponentcomponent = opponent.GetComponent<Opponent>();
+        camara = Camra.GetComponent<StupidCamera>();
 
         if (defendercomponent.Angle > opponentcomponent.shotangle + 5)
         {
-            camera.transform.position = new Vector3(-5, -3, 0);
+            float Angle = camara.Angle - 7f;
+            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
+            camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
         }
         else if (defendercomponent.Angle < opponentcomponent.shotangle - 5)
         {
-            camera.transform.position = new Vector3(5, -3, 0);
+            float Angle = camara.Angle + 7f;
+            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
+            camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
         }
         else
         {
-            camera.transform.position = new Vector3(0, -3, 0);
+            float Angle = camara.Angle;
+            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
+            camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
         }
 
         if (transform.parent == null)
@@ -89,6 +100,9 @@ public class Ball : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, camera.transform.position, bounceSpeed * Time.deltaTime);
             }
+        }
+        if(transform.position.y == camera.transform.position.y){
+            canmove = false;
         }
     }
 
