@@ -4,29 +4,33 @@ using UnityEngine;
 
 public class Hands : MonoBehaviour
 {
-    public Sprite HandLow;
-    public Sprite HandHigh;
     private bool HandsHigh = false;
-    private SpriteRenderer sr;
+    public float Height = 3.5f;
+    public float Speed = 10;
     // Start is called before the first frame update
     void Start()
     {
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.W))
         {
-            HandsHigh = true;
-            ChangeSprite(HandHigh);
+            Height += (1*Speed/50);
+            Debug.Log("UP");
+            Debug.Log(Height);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.S))
         {
-            HandsHigh = false;
-            ChangeSprite(HandLow);
+            Height -= (1*Speed/50);
+            Debug.Log("DOWN");
         }
+        transform.position = new Vector3(transform.position.x, Height, transform.position.z);
+        Vector2 a = new Vector2(transform.position.x, transform.position.y);
+        Vector2 b = new Vector2(0, 1);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 57 * Mathf.Atan(7 * Height) - 90);
+        Debug.Log(Mathf.Tan(Vector2.Distance(a,b)));
     }
 
     void ChangeSprite(Sprite sprite)
