@@ -14,16 +14,34 @@ public class Ball : MonoBehaviour
     public bool movetowardsframe = true;
     public float minScale = 0.5f;  // Minimum scale when close to the Frame
     public float maxScale = 1.5f;
+    public float position = 0;
+    public GameObject defender;
+    public GameObject opponent;
+    private Defender defendercomponent;
+    private Opponent opponentcomponent;
     void Start()
     {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         float distance = Vector3.Distance(transform.position, Frame.transform.position);
+        defendercomponent = defender.GetComponent<Defender>();
+        opponentcomponent = opponent.GetComponent<Opponent>();
+        Debug.Log(defendercomponent.Angle);
+        Debug.Log(opponentcomponent.shotangle);
+        if(defendercomponent.Angle > opponentcomponent.shotangle+5){
+            camera.transform.position = new Vector3(-5, -3, 0);
+        }
+        else if(defendercomponent.Angle < opponentcomponent.shotangle-5){
+            camera.transform.position = new Vector3(5, -3, 0);
+        }
+        else{
+            camera.transform.position = new Vector3(0, -3, 0);
+        }
         if(transform.parent == null){
-        
             if(movetowardsframe){
                 transform.position = Vector3.MoveTowards(transform.position, Frame.transform.position, speed * Time.deltaTime);
                 if (Vector3.Distance(transform.position, Frame.transform.position) <= stopDistance)
