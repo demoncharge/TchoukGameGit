@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Defender : MonoBehaviour
 {
-    public float Angle = 45f;
-    public float Speed = 1f;
+    public float Angle = 90f;
+    public float Speed = 30f;
 
 
     // Start is called before the first frame update

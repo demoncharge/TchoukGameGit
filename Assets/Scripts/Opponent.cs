@@ -34,7 +34,7 @@ public class Opponent : MonoBehaviour
         else{
             shotangle = 90;
         }
-        shotangle = 60;
+        shotangle = 50;
         if(transform.position.x-Frame.transform.position.x < 1.5f){
             transform.DetachChildren();
         }
