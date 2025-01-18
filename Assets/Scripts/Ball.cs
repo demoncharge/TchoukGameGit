@@ -23,13 +23,19 @@ public class Ball : MonoBehaviour
     private Vector3 launchDirection;
     public bool canmove = true;
     private Rigidbody2D rb;
-
+    public bool catched = false;
+    public int point = 0;
     public GameObject Camra;
     private StupidCamera camara;
     private float Radius = 7.8f;
+    public GameObject gameObjectSave;
+    private GameObjectSave gamesave;
 
+    
+    
     void Start()
     {
+
         if (targetPositionObject == null)
         {
             Debug.LogError("Target Position Object is not assigned!");
@@ -46,17 +52,18 @@ public class Ball : MonoBehaviour
     {
         defendercomponent = defender.GetComponent<Defender>();
         opponentcomponent = opponent.GetComponent<Opponent>();
+        gamesave = gameObjectSave.GetComponent<GameObjectSave>();
         camara = Camra.GetComponent<StupidCamera>();
 
         if (defendercomponent.Angle > opponentcomponent.shotangle + 5)
         {
-            float Angle = camara.Angle - 7f;
+            float Angle = camara.Angle - 20f;
             Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
             camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
         }
         else if (defendercomponent.Angle < opponentcomponent.shotangle - 5)
         {
-            float Angle = camara.Angle + 7f;
+            float Angle = camara.Angle + 20f;
             Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
             camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
         }
@@ -65,6 +72,11 @@ public class Ball : MonoBehaviour
             float Angle = camara.Angle;
             Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
             camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
+            if (catched != true && movetowardsframe != true){
+                point += 1;
+                Debug.Log(point);
+                catched = true;
+            }
         }
 
         if (transform.parent == null)
@@ -93,6 +105,7 @@ public class Ball : MonoBehaviour
                     if (Vector3.Distance(transform.position, Frame.transform.position) <= stopDistance)
                     {
                         movetowardsframe = false;  // Start bouncing away from the frame if needed
+                        canmove = false;
                     }
                 }
             }
@@ -102,7 +115,17 @@ public class Ball : MonoBehaviour
             }
         }
         if(transform.position.y == camera.transform.position.y){
-            canmove = false;
+            if(point == 3){
+
+            }
+            else{
+                gamesave.ResetGameObjects();
+                transform.parent = opponent.transform;
+                canmove = true;
+                catched = false;
+                movetowardsframe = true;
+                Debug.Log(point);
+            }
         }
     }
 
