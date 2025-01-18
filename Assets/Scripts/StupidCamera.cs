@@ -7,6 +7,8 @@ public class StupidCamera : MonoBehaviour
     public float Angle = 90;
     public float Speed = 30;
     public float Radius = 3.1f;
+    private Ball ballcomponent;
+    public GameObject ball;
     
     void Start()
     {
@@ -20,16 +22,18 @@ public class StupidCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A)) 
-        {
-            Angle -= (1 * Speed) / 50; 
+        ballcomponent = ball.GetComponent<Ball>();
+        if (ballcomponent.canmove){
+            if (Input.GetKey(KeyCode.A)) 
+            {
+                Angle -= (1 * Speed) / 50; 
+            }
+            
+            if (Input.GetKey(KeyCode.D))
+            {
+                Angle += (1 * Speed) / 50;
+            }   
         }
-        
-        if (Input.GetKey(KeyCode.D))
-        {
-            Angle += (1 * Speed) / 50;
-        }
-
         Angle = Mathf.Clamp(Angle, 30f, 150f);
 
         Vector3 DefenderPosition = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 1);

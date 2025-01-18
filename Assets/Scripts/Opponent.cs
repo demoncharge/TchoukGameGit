@@ -23,6 +23,7 @@ public class Opponent : MonoBehaviour
     void Update()
     {
         shotangle = shootinglist[shot];
+        //Debug.Log(shotangle);
         if(transform.position.x-Frame.transform.position.x < 1.5f){
             transform.DetachChildren();
         }

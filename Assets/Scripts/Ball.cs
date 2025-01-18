@@ -21,6 +21,7 @@ public class Ball : MonoBehaviour
     private Opponent opponentcomponent;
     private bool isBallMovingToTarget = false;
     private Vector3 launchDirection;
+    public bool canmove = true;
     
     private Rigidbody2D rb;
 
@@ -89,6 +90,9 @@ public class Ball : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, camera.transform.position, bounceSpeed * Time.deltaTime);
             }
+        }
+        if(transform.position.y == camera.transform.position.y){
+            canmove = false;
         }
     }
 
