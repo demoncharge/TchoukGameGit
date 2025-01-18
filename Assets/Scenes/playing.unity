@@ -253,6 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Angle: 90
   Speed: 35
+  ball: {fileID: 697870100}
 --- !u!212 &414549055
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -314,7 +315,7 @@ Transform:
   m_GameObject: {fileID: 414549053}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 5.84}
+  m_LocalPosition: {x: 0, y: 4, z: 5.84}
   m_LocalScale: {x: 0.6464, y: 0.5944, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -432,6 +433,7 @@ MonoBehaviour:
   Angle: 90
   Speed: 30
   Radius: 8.7
+  ball: {fileID: 697870100}
 --- !u!1 &697870100
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +493,8 @@ MonoBehaviour:
   position: 0
   defender: {fileID: 414549053}
   opponent: {fileID: 2032787070}
+  canmove: 1
+  Camra: {fileID: 685970833}
 --- !u!212 &697870103
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -745,7 +749,7 @@ Transform:
   m_GameObject: {fileID: 798466966}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.08, y: -0.11, z: 0.01}
+  m_LocalPosition: {x: 0.08, y: 14.37, z: 0.01}
   m_LocalScale: {x: 1.5470297, y: 1.6823688, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
