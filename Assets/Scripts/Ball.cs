@@ -140,6 +140,7 @@ public class Ball : MonoBehaviour
                     looking = false;
                     movetowardsframe = true;
                     time = 0;
+                    transform.position = new Vector3(5.4921734f, 2.5f, 2.3f);
                 }
             }
         }
