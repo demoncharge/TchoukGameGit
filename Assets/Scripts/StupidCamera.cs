@@ -34,7 +34,7 @@ public class StupidCamera : MonoBehaviour
                 Angle += (1 * Speed) / 50;
             }   
         }
-        Angle = Mathf.Clamp(Angle, 30f, 150f);
+        Angle = Mathf.Clamp(Angle, 30f, 90f);
 
         Vector3 DefenderPosition = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 1.5f);
         transform.position = new Vector3(-DefenderPosition.y, DefenderPosition.z, -DefenderPosition.x);
