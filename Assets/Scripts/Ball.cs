@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Unity.UI;
+using TMPro;
 
 public class Ball : MonoBehaviour
 {
@@ -35,9 +38,11 @@ public class Ball : MonoBehaviour
     private float RANGLE;
     private bool looking = false;
     private float shotheight;
+    public TMP_Text score;
 
     void Start()
     {
+        //score = GetComponent<TMP_Text>();
 
         if (targetPositionObject == null)
         {
@@ -79,6 +84,7 @@ public class Ball : MonoBehaviour
             camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
             if (catched != true && movetowardsframe != true){
                 point += 1;
+                score.text = "Score: " + point.ToString();
                 catched = true;
             }
         }
@@ -125,7 +131,7 @@ public class Ball : MonoBehaviour
         }
         if(transform.position.y == camera.transform.position.y){
             if(point == 3){
-
+                SceneManager.LoadSceneAsync(2);
             }
             else {
                 if (time > 50) 
@@ -150,7 +156,7 @@ public class Ball : MonoBehaviour
     {
         if(Mathf.Sqrt(Mathf.Pow(transform.position.x,2)+Mathf.Pow(transform.position.z,2))>=Radius-0.2f){
             if(point == 3){
-
+                SceneManager.LoadSceneAsync(2);
             }
             else{
                 if (time > 50) 

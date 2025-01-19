@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Opponent : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class Opponent : MonoBehaviour
             Arm.transform.eulerAngles = new Vector3(0f,0f,-90f+shotangle);
             transform.position += new Vector3(-1f,0,0f) * Time.deltaTime;
         } else {
+            SceneManager.LoadSceneAsync(2);
         }
     }
 }
