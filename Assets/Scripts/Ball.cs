@@ -79,7 +79,6 @@ public class Ball : MonoBehaviour
             camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
             if (catched != true && movetowardsframe != true){
                 point += 1;
-                Debug.Log(point);
                 catched = true;
             }
         }
@@ -141,7 +140,6 @@ public class Ball : MonoBehaviour
                     looking = false;
                     movetowardsframe = true;
                     time = 0;
-                    Debug.Log(point);
                 }
             }
         }
@@ -149,8 +147,7 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate() 
     {
-        Debug.Log(shotheight);
-        if(Mathf.Sqrt(Mathf.Pow(transform.position.x,2)+Mathf.Pow(transform.position.z,2))>=Radius-0.1f){
+        if(Mathf.Sqrt(Mathf.Pow(transform.position.x,2)+Mathf.Pow(transform.position.z,2))>=Radius-0.2f){
             if(point == 3){
 
             }
