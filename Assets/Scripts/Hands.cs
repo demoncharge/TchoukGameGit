@@ -9,7 +9,9 @@ public class Hands : MonoBehaviour
     private bool HandsHigh = false;
     public float Height = 3.5f;
     public float Speed = 10;
-    // Start is called before the first frame update
+    public float MinHeight = -0.4f; // Minimum height boundary
+    public float MaxHeight = 3.0f; // Maximum height boundary
+
     void Start()
     {
     }
@@ -19,17 +21,22 @@ public class Hands : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            Height += (1*Speed/50);
+            Height += (1 * Speed / 50);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            Height -= (1*Speed/50);
+            Height -= (1 * Speed / 50);
         }
+
+        Height = Mathf.Clamp(Height, MinHeight, MaxHeight);
+
         transform.position = new Vector3(transform.position.x, Height, transform.position.z);
-        if (Height < 0.5)
+
+        if (Height <= MinHeight)
         {
             ChangeSprite(HandLow);
-        } else 
+        }
+        else
         {
             ChangeSprite(HandHigh);
         }
