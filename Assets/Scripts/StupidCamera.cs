@@ -36,7 +36,7 @@ public class StupidCamera : MonoBehaviour
         }
         Angle = Mathf.Clamp(Angle, 30f, 150f);
 
-        Vector3 DefenderPosition = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 1);
+        Vector3 DefenderPosition = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 1.5f);
         transform.position = new Vector3(-DefenderPosition.y, DefenderPosition.z, -DefenderPosition.x);
         transform.eulerAngles = new Vector3(0, 90 - Angle, 0);
     }

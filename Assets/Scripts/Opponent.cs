@@ -5,6 +5,7 @@ using UnityEngine;
 public class Opponent : MonoBehaviour
 {
     public GameObject Frame;
+    public GameObject Arm;
     public int shot = 0;
     public float shotangle = 0f;
     public List<float> shootinglist = new List<float>();
@@ -22,11 +23,12 @@ public class Opponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        shotangle = shootinglist[shot];
-        //Debug.Log(shotangle);
-        if(transform.position.x-Frame.transform.position.x < 1.5f){
-            transform.DetachChildren();
+        if (shot < 10) 
+        {
+            shotangle = shootinglist[shot];
+            Arm.transform.eulerAngles = new Vector3(0f,0f,-90f+shotangle);
+            transform.position += new Vector3(-1f,0,0f) * Time.deltaTime;
+        } else {
         }
-        transform.position += new Vector3(-1f,0,0f) * Time.deltaTime;
     }
 }

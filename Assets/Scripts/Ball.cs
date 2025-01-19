@@ -30,7 +30,9 @@ public class Ball : MonoBehaviour
     private float Radius = 7.8f;
     public GameObject gameObjectSave;
     private GameObjectSave gamesave;
-
+    private int time = 0;
+    public GameObject Arm;
+    private float RANGLE;
     
     
     void Start()
@@ -46,6 +48,7 @@ public class Ball : MonoBehaviour
         {
             Debug.LogError("Rigidbody2D component not found on the ball!");
         }
+        RANGLE = Random.Range(1f,10f);
     }
 
     void Update()
@@ -81,6 +84,7 @@ public class Ball : MonoBehaviour
 
         if (transform.parent == null)
         {
+            transform.eulerAngles += new Vector3(0,0,RANGLE);
             if (movetowardsframe)
             {
                 if (Input.GetKey(KeyCode.E) && !isBallMovingToTarget)
@@ -118,15 +122,40 @@ public class Ball : MonoBehaviour
             if(point == 3){
 
             }
-            else{
-                gamesave.ResetGameObjects();
-                transform.parent = opponent.transform;
-                canmove = true;
-                catched = false;
-                movetowardsframe = true;
-                Debug.Log(point);
+            else {
+                if (time > 50) 
+                {
+                    transform.parent = Arm.transform;
+                    gamesave.ResetGameObjects();
+                    RANGLE = Random.Range(1f,10f);
+                   opponentcomponent.shot += 1;
+                    canmove = true;
+                    catched = false;
+                    movetowardsframe = true;
+                    time = 0;
+                    Debug.Log(point);
+                }
             }
         }
+    }
+
+    void FixedUpdate() 
+    {
+        if(transform.position.y == camera.transform.position.y){
+            if(point == 3){
+
+            }
+            else{
+                if (time > 50) 
+                {
+                }
+                else
+                {
+                    time += 1;
+                }
+            }
+        }
+
     }
 
     void LaunchBall(Vector3 direction)
