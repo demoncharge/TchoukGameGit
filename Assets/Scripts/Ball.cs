@@ -27,14 +27,15 @@ public class Ball : MonoBehaviour
     public int point = 0;
     public GameObject Camra;
     private StupidCamera camara;
-    private float Radius = 7.8f;
+    private float Radius = 8f;
     public GameObject gameObjectSave;
     private GameObjectSave gamesave;
     private int time = 0;
     public GameObject Arm;
     private float RANGLE;
-    
-    
+    private bool looking = false;
+    private float shotheight;
+
     void Start()
     {
 
@@ -49,6 +50,7 @@ public class Ball : MonoBehaviour
             Debug.LogError("Rigidbody2D component not found on the ball!");
         }
         RANGLE = Random.Range(1f,10f);
+        shotheight = Random.Range(0.1f,3f);
     }
 
     void Update()
@@ -61,19 +63,19 @@ public class Ball : MonoBehaviour
         if (defendercomponent.Angle > opponentcomponent.shotangle + 5)
         {
             float Angle = camara.Angle - 20f;
-            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
+            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), shotheight);
             camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
         }
         else if (defendercomponent.Angle < opponentcomponent.shotangle - 5)
         {
             float Angle = camara.Angle + 20f;
-            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
+            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), shotheight);
             camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
         }
         else
         {
             float Angle = camara.Angle;
-            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), 0.2f);
+            Vector3 CamraPos = new Vector3((float) Radius * Mathf.Sin(Angle * (Mathf.PI/180)), (float) Radius * Mathf.Cos(Angle * (Mathf.PI/180)), shotheight);
             camera.transform.position = new Vector3(-CamraPos.y, CamraPos.z, -CamraPos.x);
             if (catched != true && movetowardsframe != true){
                 point += 1;
@@ -84,6 +86,10 @@ public class Ball : MonoBehaviour
 
         if (transform.parent == null)
         {
+            if (!looking) {
+                transform.LookAt(Camra.transform);
+                looking = true;
+            }
             transform.eulerAngles += new Vector3(0,0,RANGLE);
             if (movetowardsframe)
             {
@@ -128,9 +134,11 @@ public class Ball : MonoBehaviour
                     transform.parent = Arm.transform;
                     gamesave.ResetGameObjects();
                     RANGLE = Random.Range(1f,10f);
-                   opponentcomponent.shot += 1;
+                    shotheight = Random.Range(0.1f,3f);
+                    opponentcomponent.shot += 1;
                     canmove = true;
                     catched = false;
+                    looking = false;
                     movetowardsframe = true;
                     time = 0;
                     Debug.Log(point);
@@ -141,7 +149,8 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate() 
     {
-        if(transform.position.y == camera.transform.position.y){
+        Debug.Log(shotheight);
+        if(Mathf.Sqrt(Mathf.Pow(transform.position.x,2)+Mathf.Pow(transform.position.z,2))>=Radius-0.1f){
             if(point == 3){
 
             }
